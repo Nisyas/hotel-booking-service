@@ -30,8 +30,8 @@ class BookingSerializer(serializers.ModelSerializer):
         if not isinstance(value, Room):
             try:
                 value = Room.objects.get(id=value)
-            except Room.DoesNotExist:
-                raise serializers.ValidationError(f"Номер с ID {value} не существует")
+            except Room.DoesNotExist as err:
+                raise serializers.ValidationError(f"Номер с ID {value} не существует") from err
         return value
 
     def validate_date_start(self, value):
@@ -110,8 +110,8 @@ class BookingCreateSerializer(serializers.Serializer):
 
         try:
             room = Room.objects.get(id=room_id)
-        except Room.DoesNotExist:
-            raise serializers.ValidationError({"room_id": f"Номер с ID {room_id} не существует"})
+        except Room.DoesNotExist as err:
+            raise serializers.ValidationError({"room_id": f"Номер с ID {room_id} не существует"}) from err
 
         overlapping = Booking.objects.filter(
             room_id=room_id, date_start__lt=date_end, date_end__gt=date_start
