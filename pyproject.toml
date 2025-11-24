@@ -5,6 +5,11 @@ description = "Сервис для управления номерами оте�
 authors = ["Valerii Tkachenko <valeratk32@list.ru>"]
 readme = "README.md"
 
+packages = [
+    { include = "bookings" },
+    { include = "hotel_booking" }
+]
+
 [tool.poetry.dependencies]
 python = "^3.10"
 django = "^4.2"
