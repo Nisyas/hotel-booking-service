@@ -23,7 +23,7 @@ WORKDIR /app
 
 COPY pyproject.toml poetry.lock* /app/
 
-RUN poetry install --no-root --only main
+RUN poetry install --no-root --only main --with dev
 
 COPY . /app/
 

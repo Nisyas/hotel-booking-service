@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS bookings_booking (
         REFERENCES rooms_room(id)
         ON DELETE CASCADE,
     CONSTRAINT check_dates
-        CHECK (date_end > date_start)
+        CHECK (date_end > date_start),
     CONSTRAINT check_not_past_dates
         CHECK (date_start >= CURRENT_DATE)
 );

@@ -4,7 +4,6 @@ version = "0.1.0"
 description = "Сервис для управления номерами отелей и бронированиями"
 authors = ["Valerii Tkachenko <valeratk32@list.ru>"]
 readme = "README.md"
-package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -29,16 +28,16 @@ target-version = "py310"
 
 [tool.ruff.lint]
 select = [
-    "E",   # pycodestyle errors
-    "W",   # pycodestyle warnings
-    "F",   # pyflakes
-    "I",   # isort
-    "B",   # flake8-bugbear
-    "C4",  # flake8-comprehensions
-    "UP",  # pyupgrade
+    "E",
+    "W",
+    "F",
+    "I",
+    "B",
+    "C4",
+    "UP",
 ]
 ignore = [
-    "E501",  # line too long (handled by formatter)
+    "E501",
 ]
 
 [tool.ruff.lint.isort]

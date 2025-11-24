@@ -36,10 +36,10 @@ def load_config() -> Settings:
             f"Файл конфигурации не найден: {config_path}\n"
             "Скопируйте config.yaml.example в config.yaml и заполните его."
         )
-    
-    with open(config_path, "r", encoding="utf-8") as f:
+
+    with open(config_path, encoding="utf-8") as f:
         config_data = yaml.safe_load(f)
-    
+
     return Settings(**config_data)
 
 
