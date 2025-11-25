@@ -112,7 +112,7 @@ class TestBookingList:
             date_end=future_dates["in_10_days"],
         )
 
-        response = api_client.get(f"/bookings/list?room_id={sample_room.id}/")
+        response = api_client.get(f"/bookings/list/?room_id={sample_room.id}")
 
         assert response.status_code == status.HTTP_200_OK
         assert len(response.data) == 2
@@ -127,6 +127,6 @@ class TestBookingList:
         assert "error" in response.data
 
     def test_list_bookings_nonexistent_room(self, api_client):
-        response = api_client.get("/bookings/list?room_id=99999/")
+        response = api_client.get("/bookings/list/?room_id=99999")
 
         assert response.status_code == status.HTTP_404_NOT_FOUND
