@@ -123,10 +123,10 @@ curl -X POST http://localhost:9000/bookings/create/
 curl http://localhost:9000/rooms/list/?sort_by=price&order=asc
 
 ### Получить список бронирований для комнаты
-curl http://localhost:9000/bookings/list?room_id=1
+curl http://localhost:9000/bookings/list/?room_id=1
 
 ### Удалить бронирование
-curl -X DELETE http://localhost:9000/bookings/delete/1
+curl -X DELETE http://localhost:9000/bookings/delete/1/
 
 
 ## Запуск тестов

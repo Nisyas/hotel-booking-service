@@ -15,7 +15,7 @@ class TestBookingCreate:
             "date_end": future_dates["in_5_days"].isoformat(),
         }
 
-        response = api_client.post("/bookings/create", data, format='json')
+        response = api_client.post("/bookings/create/", data, format='json')
 
         assert response.status_code == status.HTTP_201_CREATED
         assert "id" in response.data
@@ -31,7 +31,7 @@ class TestBookingCreate:
             "date_end": future_dates["in_5_days"].isoformat(),
         }
 
-        response = api_client.post("/bookings/create", data, format='json')
+        response = api_client.post("/bookings/create/", data, format='json')
 
         assert response.status_code == status.HTTP_400_BAD_REQUEST
         assert "room_id" in response.data
@@ -46,7 +46,7 @@ class TestBookingCreate:
             "date_end": future.isoformat(),
         }
 
-        response = api_client.post("/bookings/create", data, format='json')
+        response = api_client.post("/bookings/create/", data, format='json')
 
         assert response.status_code == status.HTTP_400_BAD_REQUEST
         assert "date_start" in response.data
@@ -58,7 +58,7 @@ class TestBookingCreate:
             "date_end": future_dates["tomorrow"].isoformat(),
         }
 
-        response = api_client.post("/bookings/create", data, format='json')
+        response = api_client.post("/bookings/create/", data, format='json')
 
         assert response.status_code == status.HTTP_400_BAD_REQUEST
         assert "date_end" in response.data or "non_field_errors" in response.data
@@ -76,7 +76,7 @@ class TestBookingCreate:
             "date_end": future_dates["in_10_days"].isoformat(),
         }
 
-        response = api_client.post("/bookings/create", data, format='json')
+        response = api_client.post("/bookings/create/", data, format='json')
 
         assert response.status_code == status.HTTP_400_BAD_REQUEST
         assert "non_field_errors" in response.data
@@ -87,13 +87,13 @@ class TestBookingDelete:
     def test_delete_existing_booking(self, api_client, sample_booking):
         booking_id = sample_booking.id
 
-        response = api_client.delete(f"/bookings/delete/{booking_id}")
+        response = api_client.delete(f"/bookings/delete/{booking_id}/")
 
         assert response.status_code == status.HTTP_204_NO_CONTENT
         assert not Booking.objects.filter(id=booking_id).exists()
 
     def test_delete_nonexistent_booking(self, api_client):
-        response = api_client.delete("/bookings/delete/99999")
+        response = api_client.delete("/bookings/delete/99999/")
 
         assert response.status_code == status.HTTP_404_NOT_FOUND
 
@@ -112,7 +112,7 @@ class TestBookingList:
             date_end=future_dates["in_10_days"],
         )
 
-        response = api_client.get(f"/bookings/list?room_id={sample_room.id}")
+        response = api_client.get(f"/bookings/list?room_id={sample_room.id}/")
 
         assert response.status_code == status.HTTP_200_OK
         assert len(response.data) == 2
@@ -121,12 +121,12 @@ class TestBookingList:
         assert dates == sorted(dates)
 
     def test_list_bookings_missing_room_id(self, api_client):
-        response = api_client.get("/bookings/list")
+        response = api_client.get("/bookings/list/")
 
         assert response.status_code == status.HTTP_400_BAD_REQUEST
         assert "error" in response.data
 
     def test_list_bookings_nonexistent_room(self, api_client):
-        response = api_client.get("/bookings/list?room_id=99999")
+        response = api_client.get("/bookings/list?room_id=99999/")
 
         assert response.status_code == status.HTTP_404_NOT_FOUND
