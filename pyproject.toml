@@ -1,0 +1,60 @@
+[tool.poetry]
+name = "hotel-booking-service"
+version = "0.1.0"
+description = "Сервис для управления номерами отелей и бронированиями"
+authors = ["Valerii Tkachenko <valeratk32@list.ru>"]
+readme = "README.md"
+
+packages = [
+    { include = "bookings" },
+    { include = "hotel_booking" }
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+django = "^4.2"
+djangorestframework = "^3.14"
+psycopg2-binary = "^2.9"
+pydantic-settings = "^2.0"
+pyyaml = "^6.0"
+python-dotenv = "^1.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4"
+pytest-django = "^4.5"
+pytest-cov = "^4.1"
+ruff = "^0.1"
+pre-commit = "^3.5"
+faker = "^20.0"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = [
+    "E",
+    "W",
+    "F",
+    "I",
+    "B",
+    "C4",
+    "UP",
+]
+ignore = [
+    "E501",
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["bookings", "hotel_booking"]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "hotel_booking.settings"
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --cov=. --cov-report=html --cov-report=term-missing"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
